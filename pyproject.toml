@@ -1,12 +1,24 @@
 [project]
 name = "gameoflifepython"
 version = "0.1.0"
-description = "Add your description here"
+description = "Recreation of Conways Game of Life in python."
 requires-python = ">=3.13"
 dependencies = [
     "pre-commit>=4.1.0",
+    "pytest>=8.3.5",
     "ruff>=0.9.9",
+    "typer>=0.15.2",
 ]
+
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = ["game"]
+
+[project.scripts]
+game = "game.main:app"
 
 [tool.ruff]
 line-length = 120
