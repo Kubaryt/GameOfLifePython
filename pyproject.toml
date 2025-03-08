@@ -17,6 +17,12 @@ build-backend = "setuptools.build_meta"
 [tool.setuptools]
 packages = ["game"]
 
+[project.optional-dependencies]
+test = ["pytest"]
+
+[tool.pytest.ini_options]
+testpaths = ["game/tests/*"]
+
 [project.scripts]
 game = "game.main:app"
 
