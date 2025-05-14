@@ -1,3 +1,9 @@
+import time
+
+from rich.console import Console
+from rich.live import Live
+
+
 class AbstractMap:
     """
     Abstract class for the map.
@@ -121,3 +127,11 @@ class Map(AbstractMap):
         self.map = new_map
         self.generation += 1
         self.population = population
+
+    def run(self):
+        console = Console()
+        with Live(self.__str__(), refresh_per_second=5, console=console) as live:
+            while self.population > 0:
+                self.next_generation()
+                live.update(self.__str__())
+                time.sleep(0.1)  # small pause between generations
