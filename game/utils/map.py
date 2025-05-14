@@ -67,19 +67,42 @@ class AbstractMap:
 class Map(AbstractMap):
     birth_condition = (list[int],)
     survival_condition = (list[int],)
+    number_of_rows = int
+    number_of_columns = int
 
     def __init__(self, game_map: list[list[bool]] = None):
         super().__init__(game_map)
         self.birth_condition = [3]
         self.survival_condition = [2, 3]
+        self.number_of_rows = len(self.map)
+        self.number_of_columns = len(self.map[0])
 
-    def __str__(self) -> tuple[str, int, int]:
-        map_str = super().__str__()
+    def __str__(self) -> str:
+        map_str = ""
+        for row in self.map:
+            map_str += "".join(["# " if cell else ". " for cell in row])
+            map_str += "\n"
 
-        return map_str, self.population, self.generation
+        return map_str
+
+    def load_from_str(self, map_grid: str):
+        """
+        Load the map from a string.
+        Use space for line breaks and # for alive cells.
+        """
+        rows = map_grid.split(" ")
+        self.number_of_rows = len(rows)
+        self.number_of_columns = len(rows[0])
+        self.map = [[False for _ in range(self.number_of_columns)] for _ in range(self.number_of_rows)]
+        for y, line in enumerate(rows):
+            for x, char in enumerate(line):
+                if char == "#":
+                    self.map[y][x] = True
+                elif char != ".":
+                    raise ValueError(f"Invalid character '{char}' in map string.")
 
     def next_generation(self):
-        new_map = [[False for _ in range(10)] for _ in range(10)]
+        new_map = [[False for _ in range(self.number_of_columns)] for _ in range(self.number_of_rows)]
         population = 0
 
         for y, row in enumerate(self.map):
