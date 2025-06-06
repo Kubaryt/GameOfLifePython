@@ -94,14 +94,27 @@ class Map(AbstractMap):
     def load_from_str(self, map_grid: str):
         """
         Load the map from a string.
-        Use space for line breaks and # for alive cells.
+        Use space for end of row, . for dead cells and # for alive cells.
         """
         rows = map_grid.split(" ")
+        self.load_from_rows(rows)
+
+    def load_from_file(self, file_path: str):
+        """
+        Load the map from a file.
+        Use line breaks for end of row, . for dead cells and # for alive cells.
+        """
+        with open(file_path) as file:
+            map_grid = file.readlines()
+            self.load_from_rows(map_grid)
+
+    def load_from_rows(self, rows: list[str]):
         self.number_of_rows = len(rows)
-        self.number_of_columns = len(rows[0])
+        self.number_of_columns = len(rows[0].strip())
         self.map = [[False for _ in range(self.number_of_columns)] for _ in range(self.number_of_rows)]
         for y, line in enumerate(rows):
-            for x, char in enumerate(line):
+            for x, char in enumerate(line.strip()):
+                print(x, y, char, line)
                 if char == "#":
                     self.map[y][x] = True
                 elif char != ".":
