@@ -4,10 +4,10 @@ version = "0.1.0"
 description = "Recreation of Conways Game of Life in python."
 requires-python = ">=3.13"
 dependencies = [
-    "pre-commit>=4.1.0",
-    "pytest>=8.3.5",
-    "ruff>=0.9.9",
-    "typer>=0.15.2",
+    "pre-commit>=4.2.0",
+    "pytest>=8.4.0",
+    "ruff>=0.11.13",
+    "typer>=0.16.0",
 ]
 
 [build-system]
