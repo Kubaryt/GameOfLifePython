@@ -8,6 +8,7 @@ dependencies = [
     "pytest>=8.4.0",
     "ruff>=0.11.13",
     "typer>=0.16.0",
+    "pynput>=1.8.1"
 ]
 
 [build-system]
