@@ -1,9 +1,3 @@
-import time
-
-from rich.console import Console
-from rich.live import Live
-
-
 class AbstractMap:
     """
     Abstract class for the map.
@@ -87,6 +81,7 @@ class Map(AbstractMap):
         map_str = ""
         for row in self.map:
             map_str += "".join(["# " if cell else ". " for cell in row])
+            map_str = map_str.strip()
             map_str += "\n"
 
         return map_str
@@ -114,11 +109,12 @@ class Map(AbstractMap):
         self.map = [[False for _ in range(self.number_of_columns)] for _ in range(self.number_of_rows)]
         for y, line in enumerate(rows):
             for x, char in enumerate(line.strip()):
-                print(x, y, char, line)
                 if char == "#":
                     self.map[y][x] = True
                 elif char != ".":
                     raise ValueError(f"Invalid character '{char}' in map string.")
+
+        self.population = self.count_population()
 
     def next_generation(self):
         new_map = [[False for _ in range(self.number_of_columns)] for _ in range(self.number_of_rows)]
@@ -140,11 +136,3 @@ class Map(AbstractMap):
         self.map = new_map
         self.generation += 1
         self.population = population
-
-    def run(self):
-        console = Console()
-        with Live(self.__str__(), refresh_per_second=5, console=console) as live:
-            while self.population > 0:
-                self.next_generation()
-                live.update(self.__str__())
-                time.sleep(0.1)  # small pause between generations

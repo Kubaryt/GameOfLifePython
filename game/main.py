@@ -1,6 +1,7 @@
 import typer
 
 from game.utils.map import Map
+from game.utils.tui import run
 
 app = typer.Typer()
 
@@ -21,14 +22,14 @@ def main(
     game_map = Map()
     if map_grid is not None:
         game_map.load_from_str(map_grid)
-    game_map.run()
+    run(game_map)
 
 
 @app.command()
 def from_file(file_path: str):
     game_map = Map()
     game_map.load_from_file(file_path)
-    game_map.run()
+    run(game_map)
 
 
 if __name__ == "__main__":
