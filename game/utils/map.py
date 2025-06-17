@@ -154,7 +154,9 @@ class Map(AbstractMap):
         for neighbouring_y in range(y - self.neighbouring_condition, y + (self.neighbouring_condition + 1)):
             if 0 <= neighbouring_y < len(self.map):
                 for neighbouring_x in range(x - self.neighbouring_condition, x + (self.neighbouring_condition + 1)):
-                    if 0 <= neighbouring_x < len(self.map[neighbouring_y]) and (neighbouring_y != y or neighbouring_x != x):
+                    if 0 <= neighbouring_x < len(self.map[neighbouring_y]) and (
+                        neighbouring_y != y or neighbouring_x != x
+                    ):
                         if self.map[neighbouring_y][neighbouring_x]:
                             neighbours += 1
 
