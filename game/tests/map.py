@@ -10,6 +10,13 @@ def test_neighbour_count():
     assert neighbours == excepted_neighbours
 
 
+def test_neighbour_count_condition_2():
+    excepted_neighbours = 3
+    game_map = Map()
+
+    neighbours = game_map.count_neighbours(1, 2)
+    assert neighbours == excepted_neighbours
+
 def test_neighbour_count_fail():
     excepted_neighbours = 1
     game_map = Map()
