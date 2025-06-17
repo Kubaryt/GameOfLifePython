@@ -11,21 +11,36 @@ app = typer.Typer()
 
 @app.callback(invoke_without_command=True)
 def main(
-    map_grid: Annotated[str, typer.Option(
-        help="Load a map from a string representation",
-    )] = None,
-    file_path: Annotated[str, typer.Option(
-        help="Load a map from a file",
-    )] = None,
-    survival_condition: Annotated[str, typer.Option(
-        help="Survival condition for the game, e.g., [2, 3]",
-    )] = None,
-    birth_condition: Annotated[str, typer.Option(
-        help="Birth condition for the game, e.g., [3]",
-    )] = None,
-    neighbouring_condition: Annotated[int, typer.Option(
-        help="Number of neighbouring cells to consider for the game",
-    )] = 1
+    map_grid: Annotated[
+        str,
+        typer.Option(
+            help="Load a map from a string representation",
+        ),
+    ] = None,
+    file_path: Annotated[
+        str,
+        typer.Option(
+            help="Load a map from a file",
+        ),
+    ] = None,
+    survival_condition: Annotated[
+        str,
+        typer.Option(
+            help="Survival condition for the game, e.g., [2, 3]",
+        ),
+    ] = None,
+    birth_condition: Annotated[
+        str,
+        typer.Option(
+            help="Birth condition for the game, e.g., [3]",
+        ),
+    ] = None,
+    neighbouring_condition: Annotated[
+        int,
+        typer.Option(
+            help="Number of neighbouring cells to consider for the game",
+        ),
+    ] = 1,
 ):
     game_map = Map()
 

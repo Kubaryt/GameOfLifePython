@@ -1,6 +1,6 @@
+from game.utils.cli import parse_multiple_value_argument_from_str
 from game.utils.map import Map
 from game.utils.tui import prepare_display
-from game.utils.cli import parse_multiple_value_argument_from_str
 
 
 def test_from_arg():
@@ -54,4 +54,3 @@ def test_parsing_multiple_value_argument():
     assert parse_multiple_value_argument_from_str("2, 3") == [2, 3]
     assert parse_multiple_value_argument_from_str("3") == [3]
     assert parse_multiple_value_argument_from_str("") == []
-
