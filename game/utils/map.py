@@ -3,9 +3,9 @@ class AbstractMap:
     Abstract class for the map.
     """
 
-    population = int
-    generation = int
-    map = list[list[bool]]
+    population: int
+    generation: int
+    map: list[list[bool]]
 
     def __init__(self, game_map: list[list[bool]] = None):
         if game_map is None:
@@ -65,10 +65,10 @@ class AbstractMap:
 
 
 class Map(AbstractMap):
-    birth_condition = (list[int],)
-    survival_condition = (list[int],)
-    number_of_rows = int
-    number_of_columns = int
+    birth_condition: list[int]
+    survival_condition: list[int]
+    number_of_rows: int
+    number_of_columns: int
 
     def __init__(self, game_map: list[list[bool]] = None):
         super().__init__(game_map)
