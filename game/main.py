@@ -1,5 +1,8 @@
+from typing import Annotated
+
 import typer
 
+from game.utils.cli import parse_multiple_value_argument_from_str
 from game.utils.map import Map
 from game.utils.tui import run
 
@@ -8,27 +11,31 @@ app = typer.Typer()
 
 @app.callback(invoke_without_command=True)
 def main(
-    ctx: typer.Context,
-    map_grid: str = typer.Option(
-        None,
-        "--map-grid",
-        "-m",
+    map_grid: Annotated[str, typer.Option(
         help="Load a map from a string representation",
-    ),
+    )] = None,
+    file_path: Annotated[str, typer.Option(
+        help="Load a map from a file",
+    )] = None,
+    survival_condition: Annotated[str, typer.Option(
+        help="Survival condition for the game, e.g., [2, 3]",
+    )] = None,
+    birth_condition: Annotated[str, typer.Option(
+        help="Birth condition for the game, e.g., [3]",
+    )] = None,
 ):
-    if ctx.invoked_subcommand is not None:
-        return
-
     game_map = Map()
-    if map_grid is not None:
+
+    if survival_condition is not None:
+        game_map.survival_condition = parse_multiple_value_argument_from_str(survival_condition)
+    if birth_condition is not None:
+        game_map.birth_condition = birth_condition
+        game_map.birth_condition = parse_multiple_value_argument_from_str(birth_condition)
+
+    if file_path is not None:
+        game_map.load_from_file(file_path)
+    elif map_grid is not None:
         game_map.load_from_str(map_grid)
-    run(game_map)
-
-
-@app.command()
-def from_file(file_path: str):
-    game_map = Map()
-    game_map.load_from_file(file_path)
     run(game_map)
 
 
