@@ -49,7 +49,7 @@ class AbstractMap:
         try:
             self.map[y][x]
         except IndexError:
-            raise IndexError("Invalid coordinates.") from IndexError
+            raise IndexError("Invalid coordinates.") from None
 
         for i in range(y - 1, y + 2):
             if 0 <= i < len(self.map):
@@ -67,6 +67,7 @@ class AbstractMap:
 class Map(AbstractMap):
     birth_condition: list[int]
     survival_condition: list[int]
+    neighbouring_condition: int
     number_of_rows: int
     number_of_columns: int
 
@@ -74,6 +75,7 @@ class Map(AbstractMap):
         super().__init__(game_map)
         self.birth_condition = [3]
         self.survival_condition = [2, 3]
+        self.neighbouring_condition = 1
         self.number_of_rows = len(self.map)
         self.number_of_columns = len(self.map[0])
 
@@ -136,3 +138,24 @@ class Map(AbstractMap):
         self.map = new_map
         self.generation += 1
         self.population = population
+
+    def count_neighbours(self, x, y) -> int | None:
+        neighbours = 0
+
+        if len(self.map) == 1:
+            if len(self.map[y]) == 1:
+                return neighbours
+
+        try:
+            self.map[y][x]
+        except IndexError:
+            raise IndexError("Invalid coordinates.") from None
+
+        for neighbouring_y in range(y - self.neighbouring_condition, y + (self.neighbouring_condition + 1)):
+            if 0 <= neighbouring_y < len(self.map):
+                for neighbouring_x in range(x - self.neighbouring_condition, x + (self.neighbouring_condition + 1)):
+                    if 0 <= neighbouring_x < len(self.map[neighbouring_y]) and (neighbouring_y != y or neighbouring_x != x):
+                        if self.map[neighbouring_y][neighbouring_x]:
+                            neighbours += 1
+
+        return neighbours
