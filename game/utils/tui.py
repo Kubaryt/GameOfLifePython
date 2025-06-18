@@ -2,7 +2,6 @@ import threading
 from copy import deepcopy
 from time import sleep
 
-from pynput import keyboard
 from rich.console import Console
 from rich.live import Live
 
@@ -26,6 +25,10 @@ def prepare_display(game_map: Map, state: dict) -> str:
 
 
 def detect_key_input(state: dict, lock):
+    from pynput import (
+        keyboard,  # todo: fix this, this is placed here to avoid errors when running tests on github actions
+    )
+
     def on_press(key):
         try:
             if key.char == "p":
